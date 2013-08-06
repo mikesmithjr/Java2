@@ -1,0 +1,314 @@
+/*
+ * project     MovieListing
+ * 
+ * package		com.wickedsoftwaredesigns.movielisting
+ * 
+ * @author     Michael R. Smith Jr
+ * 
+ * date			Jul 17, 2013
+ */
+package com.wickedsoftwaredesigns.movielisting;
+
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.wickedsoftwaredesigns.libs.FileManagement;
+import com.wickedsoftwaredesigns.libs.Forms;
+import com.wickedsoftwaredesigns.libs.MovieDisplay;
+import com.wickedsoftwaredesigns.libs.Network;
+
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MainActivity.
+ */
+@SuppressWarnings("unchecked")
+public class MainActivity extends Activity {
+
+	Context _context = this;
+	RadioGroup movieOptions;
+	TextView resultView;
+	String[] optionsList;
+	Boolean connected = false;
+	HashMap<String, String> _history;
+	MovieDisplay _movie;
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		_history = getHistory();
+		
+		//Detect Network Connection
+		connected = Network.getConnectionStatus(_context);
+		if(connected){
+			Log.i("Network Connection", Network.getConnectionType(_context));
+			Toast toast = Toast.makeText(_context, "You are connected via " + Network.getConnectionType(_context)+ " network", Toast.LENGTH_SHORT);
+			toast.show();
+		}else{
+			Toast toast = Toast.makeText(_context, "No Connection Found", Toast.LENGTH_SHORT);
+			toast.show();
+		}
+		
+		// Creating the layout and layout params
+		LinearLayout ll = new LinearLayout(this);
+		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT);
+		ll.setLayoutParams(lp);
+		ll.setOrientation(LinearLayout.VERTICAL);
+		
+		//Creating Instructional TextView
+		TextView intro = new TextView(this);
+		intro.setText("Please Search for a Movie");
+		ll.addView(intro);
+		
+		
+		//Creating a Movie search box
+		LinearLayout searchBox = Forms.singleEntryWithButton(this, "Search for a Movie", "Go");
+		ll.addView(searchBox);
+		
+		//Building search button functionality
+		Button searchButton = (Button) searchBox.findViewById(2);
+		searchButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				EditText movie = (EditText) v.getTag();
+				String movieTitle = movie.getText().toString();
+				getMovieSearch(movieTitle);
+				
+			}
+		});
+		
+		//Creating Second Intructional TextView
+		TextView second = new TextView(this);
+		second.setText("Or Choose an Option below");
+		ll.addView(second);
+		
+		// Creating Array Adapter for spinner view
+		Resources res = getResources();
+		optionsList = res.getStringArray(R.array.movie_array);
+
+		// Spinner Adapter
+		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, optionsList);
+		spinnerAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+		// Creating Spinner
+		Spinner viewSpinner = new Spinner(this);
+		viewSpinner.setAdapter(spinnerAdapter);
+		lp = new LayoutParams(LayoutParams.MATCH_PARENT,
+				LayoutParams.WRAP_CONTENT);
+		viewSpinner.setLayoutParams(lp);
+		ll.addView(viewSpinner);
+		viewSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				// Saving the text from the spinner list to a string
+				String spinnerText = optionsList[position].toString();
+				// passing that text to the JSON class to be processed by the
+				// readJSON function to return the result view text
+				Log.i("spinner Text", spinnerText);
+				if ("Current Movies".equals(spinnerText)) {
+					getMovieListing("in_theaters");
+				} else if ("Upcoming Movies".equals(spinnerText)){
+					getMovieListing("upcoming");
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+
+			}
+		});
+		// adding the result view to the view
+		resultView = new TextView(this);
+		lp = new LayoutParams(LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT);
+		resultView.setLayoutParams(lp);
+		//ll.addView(resultView);
+
+		
+		_movie = new MovieDisplay(_context);
+		ll.addView(_movie);
+		ll.setOrientation(LinearLayout.VERTICAL);
+		setContentView(ll);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	/**
+	 * Gets the movie listing.
+	 *
+	 * @param listType the list type
+	 * @return the movie listing
+	 */
+	private void getMovieListing(String listType){
+		//api key for rotten tomatoes api
+		String apiKey = "t2m7kt6ccg644jte4fvfsaf7";
+		//base url for rottentomatoes api call
+		String baseURL = "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/";
+		//search specific string for api call
+		String searchURL = listType + ".json?apikey=" + apiKey + "&page_limit=3";
+		
+		URL finalURL;
+		try {
+			//building url for call
+			finalURL = new URL(baseURL + searchURL);
+			//creating a new search request and calling it with the url
+			SearchRequest sr = new SearchRequest();
+			sr.execute(finalURL);
+		} catch (MalformedURLException e) {
+			Log.e("BAD URL", "malformed URL");
+		}
+	}
+	
+	/**
+	 * Gets the movie search.
+	 *
+	 * @param movieName the movie name
+	 * @return the movie search
+	 */
+	private void getMovieSearch(String movieName){
+		//api key for rotten tomatoes api
+		String apiKey = "t2m7kt6ccg644jte4fvfsaf7";
+		//base url for rottentomatoes api call
+		String baseURL = "http://api.rottentomatoes.com/api/public/v1.0/movies.json";
+		//search specific string for api call
+		String movieURL = "?apikey=" + apiKey + "&q=" + movieName + "&page_limit=3";
+
+		
+		URL finalURL;
+			
+		try {
+			//building url for call
+			finalURL = new URL(baseURL + movieURL);
+			//creating a new search request and calling it with the url
+			SearchRequest sr = new SearchRequest();
+			sr.execute(finalURL);
+		} catch (MalformedURLException e) {
+			Log.e("BAD URL", "malformed URL");
+			finalURL = null;
+		}
+	}
+	
+	/**
+	 * Gets the history.
+	 *
+	 * @return the history
+	 */
+	private HashMap<String, String> getHistory(){
+		//sets object to pull the history file from internal storage
+		Object stored = FileManagement.readObjectFile(_context, "history", false);
+		//calls an instance of the history hashmap
+		HashMap<String, String> history;
+		if(stored == null){
+			//if no file exists create it
+			Log.i("HISTORY", "NO HISTORY FILE FOUND");
+			history = new HashMap<String, String>();
+		}else{
+			//if file exists pull it and read it with the read object file method in the file management class
+			history = (HashMap<String, String>) stored;
+		}
+		//return the history object
+		return history;
+	}
+	
+	/**
+	 * The Class SearchRequest.
+	 */
+	private class SearchRequest extends AsyncTask<URL, Void, String>{
+		
+		/* (non-Javadoc)
+		 * @see android.os.AsyncTask#doInBackground(Params[])
+		 */
+		@Override
+		//pulls the async data in the background
+		protected String doInBackground(URL... urls){
+			String response = "";
+			for (URL url: urls){
+				//calls the url string response from the network library
+				response = Network.getURLStringResponse(url);
+			}
+			//returns the response data
+			return response;
+		}
+		
+		/* (non-Javadoc)
+		 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+		 */
+		@Override
+		protected void onPostExecute(String result){
+			Log.i("URL Response", result);
+			
+			//Pull the Array of Movies out of JSON Data
+			try {
+				JSONObject object = new JSONObject(result);
+				//checks to see if the call from the api returns data if not it sends a toast
+				if(object.getString("total").compareTo("0")==0){
+					Toast toast = Toast.makeText(_context, "No Movie Found", Toast.LENGTH_SHORT);
+					toast.show();
+				}else{
+				JSONArray movies = object.getJSONArray("movies");
+				
+				JSONObject results = JSON.buildJSON(movies);
+				resultView.setText(JSON.readJSON(movies));
+				
+				//saves the data into a history file on internal memory and a temp file on the external memory
+				_history.put(results.getJSONObject("query").getJSONObject("movie").getString("title"), results.toString());
+				FileManagement.storeObjectFile(_context, "history", _history, false);
+				FileManagement.storeStringfile(_context, "temp", results.toString(), true);
+				
+				}
+				
+			} catch (JSONException e) {
+				Log.e("JSON EXCEPTION", "JSON ARRAY ERROR");
+				
+			}
+			
+		}
+	}
+}

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/please_search_for_a_movie"
+            style="@style/InfoLabel"/>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+        
+        <EditText 
+            android:id="@+id/searchField"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_for_a_movie"/>
+        
+        <Button 
+            android:id="@+id/searchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/go"/>
+        
+        
+    </LinearLayout>
+    
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/or_choose_an_option_below"
+        style="@style/InfoLabel"/>
+    
+    <Spinner 
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    
+    <GridLayout 
+        android:id="@+id/moviedata"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:columnCount="2">
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/movie_title_"
+            style="@style/MovieLabel"/>
+        <TextView 
+            android:id="@+id/data_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/MovieInfo"/>
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/runtime_"
+            style="@style/MovieLabel"/>
+        <TextView 
+            android:id="@+id/data_runtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/MovieInfo"/>
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mpaa_rating_"
+            style="@style/MovieLabel"/>
+        <TextView 
+            android:id="@+id/data_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/MovieInfo"/>
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/thumbnail_"
+            style="@style/MovieLabel"/>
+        <WebView 
+            android:id="@+id/data_thumbnail"
+            android:layout_width="120dp"
+            android:layout_height="178dp"/>
+        
+    </GridLayout>
+
+</LinearLayout>

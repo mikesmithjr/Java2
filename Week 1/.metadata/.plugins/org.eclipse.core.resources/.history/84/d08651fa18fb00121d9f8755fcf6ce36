@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MovieListing</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string-array name="movie_array">
+        <item >Please Choose an option</item>
+        <item >Current Movies</item>
+        <item >Upcoming Movies</item>
+        
+    </string-array>
+        <string name="search_for_a_movie">Search for a Movie</string>
+        <string name="go">Go</string>
+        <string name="please_search_for_a_movie">Please Search for a Movie</string>
+        <string name="or_choose_an_option_below">Or Choose an Option below</string>
+        <string name="movie_title_">"Movie Title: "</string>
+        <string name="runtime_">"Runtime: "</string>
+        <string name="mpaa_rating_">"MPAA Rating: "</string>
+        <string name="thumbnail_">"Thumbnail: "</string>
+        <string name="theater_image">theater image</string>
+
+</resources>

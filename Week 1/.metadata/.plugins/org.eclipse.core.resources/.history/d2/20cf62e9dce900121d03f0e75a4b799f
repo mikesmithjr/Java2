@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Java1Week1</string>
+    <string name="title_activity_main">Java1Week1</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name= "moneyamts">Montary Amounts</string>
+    <string name= "joaquin">Joaquin</string>
+    <string name = "gary">Gary</string>
+    <string name = "austin">Austin</string>
+    <string name = "mike">Mike</string>
+    <string name = "cub">Cub</string>
+    <string name = "yak">Yak</string>
+    <string name = "cessna">Cessna</string>
+    <string name = "theBeast">The Beast</string>
+    
+
+</resources>

@@ -1,0 +1,21 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+       <style name="AppTheme" parent="android:Theme.Holo"></style>
+        <style name= "MovieLabel">
+            <item name= "android:textStyle">normal</item>
+            <item name= "android:textColor">@android:color/holo_blue_bright</item>
+            <item name= "android:textSize">18dp</item>
+        </style>
+        <style name= "MovieInfo">
+            <item name= "android:textStyle">normal</item>
+            <item name= "android:textColor">@android:color/holo_green_light</item>
+            <item name= "android:textSize">18dp</item>
+        </style>
+        <style name= "InfoLable">
+            <item name= "android:textStyle">Bold</item>
+            <item name= "android:textColor">@android:color/holo_orange_dark</item>
+            <item name= "android:textSize">25dp</item>
+        </style>
+    
+
+</resources>
