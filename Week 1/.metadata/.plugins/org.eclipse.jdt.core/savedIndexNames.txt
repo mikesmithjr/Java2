@@ -1,6 +1,4 @@
-INDEX VERSION 1.126+/Users/snuffyms/Desktop/Java1/Java1Git/Week 4/.metadata/.plugins/org.eclipse.jdt.core
-1679201726.index
+INDEX VERSION 1.126+/Users/snuffyms/Desktop/Java 2/Java2Git/Java2.git/Week 1/.metadata/.plugins/org.eclipse.jdt.core
 2915919524.index
 4237668065.index
-2227135467.index
 4242001515.index
