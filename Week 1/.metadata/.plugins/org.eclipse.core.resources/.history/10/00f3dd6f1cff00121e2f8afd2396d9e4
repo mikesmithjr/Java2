@@ -86,7 +86,7 @@ public class MovieDataService extends IntentService{
 			
 		}
 		
-		Message message = Message.obtain();
+		Message message = message.obtain();
 		message.arg1 = Activity.RESULT_OK;
 		try {
 			messenger.send(message);

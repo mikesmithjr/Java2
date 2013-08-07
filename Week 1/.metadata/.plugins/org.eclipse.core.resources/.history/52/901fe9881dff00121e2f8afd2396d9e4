@@ -51,7 +51,7 @@ public class JSON {
 				infoObject.put("runtime", movie.getString("runtime"));
 				infoObject.put("rating", movie.getString("mpaa_rating"));
 				infoObject.put("thumbnail", movie.getJSONObject("posters").getString("profile"));
-				queryObject.put(movie.getString("title"), infoObject);
+				queryObject.put("movie", infoObject);
 
 			}
 			// Add query to movies object
