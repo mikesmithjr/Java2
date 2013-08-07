@@ -43,7 +43,17 @@
         
     </LinearLayout>
     
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/or_choose_an_option_below"
+        style="@style/InfoLabel"/>
     
+    <Spinner 
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/movie_array"/>
     
     <GridLayout 
         android:id="@+id/moviedata"

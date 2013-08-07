@@ -25,13 +25,17 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -111,6 +115,37 @@ public class MainActivity extends Activity {
 		});
 		
 		
+		// Creating Array Adapter for spinner view
+		Resources res = getResources();
+		optionsList = res.getStringArray(R.array.movie_array);
+
+
+		// Creating Spinner
+		Spinner viewSpinner = (Spinner) findViewById(R.id.spinner);
+		
+		
+		viewSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				// Saving the text from the spinner list to a string
+				String spinnerText = optionsList[position].toString();
+				// passing that text to the JSON class to be processed by the
+				// readJSON function to return the result view text
+				Log.i("spinner Text", spinnerText);
+				if ("Current Movies".equals(spinnerText)) {
+					getMovieListing("in_theaters");
+				} else if ("Upcoming Movies".equals(spinnerText)){
+					getMovieListing("upcoming");
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+
+			}
+		});
 		
 		
 	}
@@ -127,6 +162,31 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Gets the movie listing.
+	 *
+	 * @param listType the list type
+	 * @return the movie listing
+	 */
+	private void getMovieListing(String listType){
+		//api key for rotten tomatoes api
+		String apiKey = "t2m7kt6ccg644jte4fvfsaf7";
+		//base url for rottentomatoes api call
+		String baseURL = "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/";
+		//search specific string for api call
+		String searchURL = listType + ".json?apikey=" + apiKey + "&page_limit=3";
+		
+		URL finalURL;
+		try {
+			//building url for call
+			finalURL = new URL(baseURL + searchURL);
+			//creating a new search request and calling it with the url
+			SearchRequest sr = new SearchRequest();
+			sr.execute(finalURL);
+		} catch (MalformedURLException e) {
+			Log.e("BAD URL", "malformed URL");
+		}
+	}
 	
 	/**
 	 * Gets the movie search.
@@ -178,8 +238,6 @@ public class MainActivity extends Activity {
 		//return the history object
 		return history;
 	}
-	
-	
 	
 	/**
 	 * The Class SearchRequest.
