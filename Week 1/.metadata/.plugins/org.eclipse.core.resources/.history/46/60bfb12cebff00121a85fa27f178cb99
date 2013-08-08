@@ -24,7 +24,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -121,7 +120,6 @@ public class MainActivity extends Activity {
 		Button searchButton = (Button) findViewById(R.id.searchButton);
 		searchButton.setOnClickListener(new View.OnClickListener() {
 			
-			@SuppressLint("HandlerLeak")
 			@Override
 			public void onClick(View v) {
 				EditText movie = (EditText) findViewById(R.id.searchField);

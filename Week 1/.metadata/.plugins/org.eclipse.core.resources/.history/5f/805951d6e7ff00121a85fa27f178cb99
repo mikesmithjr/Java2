@@ -22,6 +22,6 @@
         <string name="please_choose_an_option">Please Choose an Option</string>
         <string name="title">Title</string>
         <string name="rating">Rating</string>
-        <string name="runtime">Runtime in Minutes</string>
+        <string name="length">Length</string>
 
 </resources>

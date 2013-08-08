@@ -18,6 +18,7 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.util.Log;
+import android.widget.Toast;
 
 public class MovieDataService extends IntentService{
 
@@ -37,6 +38,8 @@ public class MovieDataService extends IntentService{
 		
 		Bundle extras = intent.getExtras();
 		Messenger messenger = (Messenger) extras.get(MESSENGER_KEY);
+		Toast toast = null;
+		
 		String movieName = extras.getString(MOVIE_KEY);
 				
 		//api key for rotten tomatoes api
@@ -67,8 +70,11 @@ public class MovieDataService extends IntentService{
 			JSONObject object = new JSONObject(response);
 			//checks to see if the call from the api returns data if not it sends a toast
 			if(object.getString("total").compareTo("0")==0){
-				Log.i("get JSONData", "no movies found");
+				toast = Toast.makeText(getBaseContext(), "No Movie Found", Toast.LENGTH_SHORT);
+				toast.show();
 			}else{
+			
+			
 			
 			
 			FileManagement.storeStringfile(getBaseContext(), "movieListFile", response, false);
@@ -79,7 +85,7 @@ public class MovieDataService extends IntentService{
 			Log.e("JSON EXCEPTION", "JSON ARRAY ERROR");
 			
 		}
-		
+		//toast.cancel();
 		Message message = Message.obtain();
 		message.arg1 = Activity.RESULT_OK;
 		try {
