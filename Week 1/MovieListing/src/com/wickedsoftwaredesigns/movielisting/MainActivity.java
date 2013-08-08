@@ -10,8 +10,6 @@
 package com.wickedsoftwaredesigns.movielisting;
 
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 
 import org.json.JSONArray;
@@ -21,7 +19,6 @@ import org.json.JSONObject;
 import com.wickedsoftwaredesigns.libs.FileManagement;
 import com.wickedsoftwaredesigns.libs.Network;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -40,21 +37,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 // TODO: Auto-generated Javadoc
-/**
- * The Class MainActivity.
- */
-@SuppressWarnings("unchecked")
 public class MainActivity extends Activity {
 
 	Context _context = this;
-	RadioGroup movieOptions;
-	TextView resultView;
-	String[] optionsList;
+	String jsonMovieDataString;
+	
 	Boolean connected = false;
-	HashMap<String, String> _history;
 	
 	
-	public void updateData(JSONArray jsonData){
+	
+	public void updateUI(String jsonString){
 		
 		
 		
@@ -63,9 +55,9 @@ public class MainActivity extends Activity {
 		TextView rating = (TextView) findViewById(R.id.data_rating);
 		TextView runtime = (TextView) findViewById(R.id.data_runtime);
 		// Creates local JSON Object from passed data
-				JSONObject object = JSON.buildJSON(jsonData);
+				//JSONObject object = JSON.buildJSON(jsonData);
 		
-		try {
+		/*try {
 			title.setText(object.getJSONObject("query").getJSONObject("movie").getString("title"));
 			rating.setText(object.getJSONObject("query").getJSONObject("movie").getString("rating"));
 			runtime.setText(object.getJSONObject("query").getJSONObject("movie").getString("runtime"));
@@ -73,7 +65,7 @@ public class MainActivity extends Activity {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 	
@@ -88,7 +80,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.form);
-		_history = getHistory();
+		
 		
 		//Detect Network Connection
 		connected = Network.getConnectionStatus(_context);
@@ -129,6 +121,8 @@ public class MainActivity extends Activity {
 						
 							try {
 								Toast.makeText(_context, "Loading Movie Info Please Wait", Toast.LENGTH_LONG).show();
+								jsonMovieDataString = FileManagement.readStringFile(_context, "temp", false);
+								//updateUI(jsonMovieDataString);
 								
 							} catch (Exception e) {
 								
@@ -172,82 +166,9 @@ public class MainActivity extends Activity {
 	}
 
 	
-	/**
-	 * Gets the history.
-	 *
-	 * @return the history
-	 */
-	private HashMap<String, String> getHistory(){
-		//sets object to pull the history file from internal storage
-		Object stored = FileManagement.readObjectFile(_context, "history", false);
-		//calls an instance of the history hashmap
-		HashMap<String, String> history;
-		if(stored == null){
-			//if no file exists create it
-			Log.i("HISTORY", "NO HISTORY FILE FOUND");
-			history = new HashMap<String, String>();
-		}else{
-			//if file exists pull it and read it with the read object file method in the file management class
-			history = (HashMap<String, String>) stored;
-		}
-		//return the history object
-		return history;
-	}
 	
 	
 	
-	/**
-	 * The Class SearchRequest.
-	 */
-	private class SearchRequest extends AsyncTask<URL, Void, String>{
-		
-		/* (non-Javadoc)
-		 * @see android.os.AsyncTask#doInBackground(Params[])
-		 */
-		@Override
-		//pulls the async data in the background
-		protected String doInBackground(URL... urls){
-			String response = "";
-			for (URL url: urls){
-				//calls the url string response from the network library
-				response = Network.getURLStringResponse(url);
-			}
-			//returns the response data
-			return response;
-		}
-		
-		/* (non-Javadoc)
-		 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
-		 */
-		@Override
-		protected void onPostExecute(String result){
-			Log.i("URL Response", result);
-			
-			//Pull the Array of Movies out of JSON Data
-			try {
-				JSONObject object = new JSONObject(result);
-				//checks to see if the call from the api returns data if not it sends a toast
-				if(object.getString("total").compareTo("0")==0){
-					Toast toast = Toast.makeText(_context, "No Movie Found", Toast.LENGTH_SHORT);
-					toast.show();
-				}else{
-				JSONArray movies = object.getJSONArray("movies");
-				updateData(movies);
-				JSONObject results = JSON.buildJSON(movies);
-				//resultView.setText(JSON.readJSON(movies));
-				
-				//saves the data into a history file on internal memory and a temp file on the external memory
-				_history.put(results.getJSONObject("query").getJSONObject("movie").getString("title"), results.toString());
-				//FileManagement.storeObjectFile(_context, "history", _history, false);
-				FileManagement.storeStringfile(_context, "temp", results.toString(), false);
-				
-				}
-				
-			} catch (JSONException e) {
-				Log.e("JSON EXCEPTION", "JSON ARRAY ERROR");
-				
-			}
-			
-		}
-	}
+	
+	
 }

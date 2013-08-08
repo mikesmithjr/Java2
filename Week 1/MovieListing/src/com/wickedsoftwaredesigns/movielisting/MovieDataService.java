@@ -3,7 +3,6 @@ package com.wickedsoftwaredesigns.movielisting;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -73,11 +72,11 @@ public class MovieDataService extends IntentService{
 				Toast toast = Toast.makeText(getBaseContext(), "No Movie Found", Toast.LENGTH_SHORT);
 				toast.show();
 			}else{
-			JSONArray movies = object.getJSONArray("movies");
-			JSONObject results = JSON.buildJSON(movies);
 			
 			
-			FileManagement.storeStringfile(getBaseContext(), "temp", results.toString(), false);
+			
+			
+			FileManagement.storeStringfile(getBaseContext(), "temp", response, false);
 			
 			}
 			
