@@ -1,0 +1,5 @@
+INDEX VERSION 1.126+/Users/snuffyms/Desktop/Java 2/Java2Git/Java2.git/Week 2/.metadata/.plugins/org.eclipse.jdt.core
+2574340135.index
+3688558098.index
+2915919524.index
+4237668065.index
