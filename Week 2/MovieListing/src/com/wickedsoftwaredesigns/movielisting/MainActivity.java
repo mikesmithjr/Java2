@@ -110,7 +110,13 @@ public class MainActivity extends Activity {
 	
 	}
 	
-	
+	//custom save instance state
+	protected void onSaveInstanceState(Bundle saveState){
+		super.onSaveInstanceState(saveState);
+		if(myList != null && !myList.isEmpty()){
+			saveState.putSerializable("saved", (Serializable)myList);
+		}
+	}
 	
 	/*
 	 * (non-Javadoc)
