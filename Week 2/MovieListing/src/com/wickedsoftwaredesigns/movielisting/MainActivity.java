@@ -10,8 +10,11 @@
 package com.wickedsoftwaredesigns.movielisting;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -111,10 +114,11 @@ public class MainActivity extends Activity {
 	}
 	
 	//custom save instance state
-	protected void onSaveInstanceState(Bundle saveState){
-		super.onSaveInstanceState(saveState);
+	protected void onSaveInstanceState(Bundle savedInstanceState){
+		super.onSaveInstanceState(savedInstanceState);
+		Log.i("onSaveInstanceState", "Save Started");
 		if(myList != null && !myList.isEmpty()){
-			saveState.putSerializable("saved", (Serializable)myList);
+			savedInstanceState.putSerializable("saved", (Serializable)myList);
 		}
 	}
 	
@@ -128,6 +132,22 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.form);
 		
+		// Restore state members from saved instance
+	    if(savedInstanceState != null){
+	    	Log.i("onCreate savedInstanceState", "Bundle has data");
+	    	//Log.i("savedInstanceState", savedInstanceState.JSONArray("saved"));
+	    	if(savedInstanceState.getStringArrayList("saved") !=null){
+	    		Log.i("onCreate saved string", "String has data");
+	    		Log.i("Saved String", savedInstanceState.getStringArrayList("saved").toString());
+	    		ArrayList<String> moviesList = savedInstanceState.getStringArrayList("saved");
+	    		//building a simple adapter to process the info into a listview
+				SimpleAdapter adapter = new SimpleAdapter(_context, myList, R.layout.movielist_row, 
+						new String[] { "title", "rating", "runtime"}, 
+						new int[]{R.id.title, R.id.rating, R.id.runtime});
+				movieList.setAdapter(adapter);
+	    	    }
+	    	
+	    }
 		
 		//Detect Network Connection
 		connected = Network.getConnectionStatus(_context);
@@ -200,7 +220,7 @@ public class MainActivity extends Activity {
 					}
 					
 				};
-				//starting the messanger for the serviec
+				//starting the messenger for the service
 				Messenger moviedatamessanger = new Messenger(moviedatahandler);
 				//creating the intent
 				Intent startMoviedataIntent = new Intent(_context, MovieDataService.class);
@@ -259,10 +279,10 @@ public class MainActivity extends Activity {
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
 	    // Always call the superclass so it can restore the view hierarchy
 	    super.onRestoreInstanceState(savedInstanceState);
-	   
+	    Log.i("onRestoreInstanceState", "Restore Started");
 	    // Restore state members from saved instance
 	    if(savedInstanceState != null){
-	    	myList = savedInstanceState.getSerializable("saved", (Serializable)myList);
+	    	myList = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("saved");
 	    }
 	}
 	/*

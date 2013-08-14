@@ -5,7 +5,7 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry kind="lib" path="/Users/snuffyms/Desktop/eclipse/adt-bundle-mac-x86_64-20130522/sdk/platforms/android-17/android.jar">
+	<classpathentry kind="lib" path="C:/Users/Cashier/Desktop/schoolstuff/java/adt-bundle-windows-x86_64-20130522/sdk/platforms/android-17/android.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="file:/Users/snuffyms/Desktop/eclipse/adt-bundle-mac-x86_64-20130522/sdk/docs/reference"/>
 		</attributes>
