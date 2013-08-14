@@ -261,7 +261,9 @@ public class MainActivity extends Activity {
 	    super.onRestoreInstanceState(savedInstanceState);
 	   
 	    // Restore state members from saved instance
-	    updateUI();
+	    if(savedInstanceState != null){
+	    	myList = savedInstanceState.getSerializable("saved", (Serializable)myList);
+	    }
 	}
 	/*
 	 * (non-Javadoc)
