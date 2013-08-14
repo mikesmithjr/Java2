@@ -171,7 +171,7 @@ public class MainActivity extends Activity {
 								Log.i("handleMessage", "pulling movie info");
 								Toast.makeText(_context, "Loading Movie Info Please Wait", Toast.LENGTH_LONG).show();
 								updateUI();
-								//updateUI(jsonMovieDataString);
+								
 								
 							} catch (Exception e) {
 								
@@ -202,7 +202,14 @@ public class MainActivity extends Activity {
 		
 		
 	}
-
+	//Restores data after the orientation change
+	public void onRestoreInstanceState(Bundle savedInstanceState) {
+	    // Always call the superclass so it can restore the view hierarchy
+	    super.onRestoreInstanceState(savedInstanceState);
+	   
+	    // Restore state members from saved instance
+	    updateUI();
+	}
 	/*
 	 * (non-Javadoc)
 	 * 

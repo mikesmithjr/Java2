@@ -1,0 +1,8 @@
+<resources>
+    
+    <integer name= "quarter">25</integer>
+    <integer name= "dime">10</integer>
+    <integer name= "nickel">5</integer>
+    <integer name= "penny">1</integer>
+    
+</resources>

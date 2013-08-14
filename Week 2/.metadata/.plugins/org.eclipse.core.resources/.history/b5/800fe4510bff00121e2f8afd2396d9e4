@@ -1,0 +1,12 @@
+package com.wickedsoftwaredesigns.movielisting;
+
+import android.app.IntentService;
+
+public class MovieDataService extends IntentService{
+
+	public MovieDataService() {
+		super("MovieDataService");
+		// TODO Auto-generated constructor stub
+	}
+
+}
