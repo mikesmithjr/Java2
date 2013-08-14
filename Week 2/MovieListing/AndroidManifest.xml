@@ -26,6 +26,7 @@
             </intent-filter>
         </activity>
         <service android:name="MovieDataService"></service>
+        <provider android:name="MovieProvider" android:authorities='"com.wickedsoftwaredesigns.movielisting.movieprovider"' android:exported="true"></provider>
     </application>
 
 </manifest>

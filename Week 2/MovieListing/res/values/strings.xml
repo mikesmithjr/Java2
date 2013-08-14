@@ -23,5 +23,7 @@
         <string name="title">Title</string>
         <string name="rating">Rating</string>
         <string name="runtime">Runtime in Minutes</string>
+        <string name="filter">Filter</string>
+        <string name="filter_your_movie_list">Filter your Movie List</string>
 
 </resources>
