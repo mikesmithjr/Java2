@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wickedsoftwaredesigns.movielisting"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0" xmlns:tools="http://schemas.android.com/tools">
 
     <uses-sdk
         android:minSdkVersion="17"
@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <service android:name="MovieDataService"></service>
-        <provider android:name="MovieProvider" android:authorities='"com.wickedsoftwaredesigns.movielisting.movieprovider"' android:exported="true"></provider>
+        <provider android:name="MovieProvider" android:authorities='com.wickedsoftwaredesigns.movielisting.movieprovider' android:exported="true" tools:ignore="ExportedContentProvider"></provider>
     </application>
 
 </manifest>

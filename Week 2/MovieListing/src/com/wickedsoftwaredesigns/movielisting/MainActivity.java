@@ -28,6 +28,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -44,13 +45,21 @@ import android.widget.Toast;
  */
 public class MainActivity extends Activity {
 
+	public static String JSON_MOVIES = "movies";
+	public static String JSON_TITLE = "title";
+	public static String JSON_RATING = "mpaa_rating";
+	public static String JSON_RUNTIME = "runtime";
+	
+	
 	Context _context = this;
 	String jsonMovieDataString;
 	ListView movieList;
 	Boolean connected = false;
+	EditText filterText;
+	Button filterButton;
+	Cursor cursor;
 	
-	
-	
+	private ArrayList<HashMap<String, String>> myList = new ArrayList<HashMap<String,String>>();
 	/**
 	 * Update ui.
 	 * this is what is called to read the file parse the JSON and build the listview
@@ -61,13 +70,13 @@ public class MainActivity extends Activity {
 		
 		JSONObject job = null;
 		JSONArray movies = null;
-		ArrayList<HashMap<String, String>> myList = new ArrayList<HashMap<String,String>>();
+		
 		
 		try {
 			//creating the JSON Object
 			job = new JSONObject(jsonMovieDataString);
 			//pulling the movies array out of the object
-			movies = job.getJSONArray("movies");
+			movies = job.getJSONArray(JSON_MOVIES);
 			//recording the length of the array
 			int recordSize = movies.length();
 			Log.i("JSONArray Size", "There are "+ String.valueOf(recordSize)+ " records in the file.");
@@ -76,9 +85,9 @@ public class MainActivity extends Activity {
 					for (int i = 0; i < recordSize; i++) {
 						
 						JSONObject movieObject = movies.getJSONObject(i);
-						String title = movieObject.getString("title");
-						String rating = movieObject.getString("mpaa_rating");
-						String runtime = movieObject.getString("runtime");
+						String title = movieObject.getString(JSON_TITLE);
+						String rating = movieObject.getString(JSON_RATING);
+						String runtime = movieObject.getString(JSON_RUNTIME);
 						//storing the data into a hashmap into key value pairs
 						HashMap<String, String> displayMap = new HashMap<String, String>();
 						displayMap.put("title", title);
@@ -198,7 +207,45 @@ public class MainActivity extends Activity {
 			}
 		});
 		
+		//setting up filter fields
+		filterText = (EditText) findViewById(R.id.filterField);
+		filterText.setText(MovieProvider.MovieData.CONTENT_URI.toString());
 		
+		filterButton = (Button) findViewById(R.id.filterButton);
+		filterButton.setOnClickListener(new View.OnClickListener() {
+			
+			
+			@Override
+			//building the onclick function for the button
+			public void onClick(View v) {
+				
+				//Hide Keyboard
+				 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+				 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+				 cursor = getContentResolver().query(MovieProvider.MovieData.CONTENT_URI, MovieProvider.MovieData.PROJECTION, null, null, null);
+				
+				if (cursor.moveToFirst() == true){
+					for (int i = 0; i < cursor.getCount(); i++) {
+						//storing the data into a hashmap into key value pairs
+						HashMap<String, String> displayMap = new HashMap<String, String>();
+						displayMap.put("title", cursor.getString(1));
+						displayMap.put("rating", cursor.getString(2));
+						displayMap.put("runtime", cursor.getString(3));
+						
+						cursor.moveToNext();
+						
+						myList.add(displayMap);
+					}
+					//building a simple adapter to process the info into a listview
+					SimpleAdapter adapter = new SimpleAdapter(_context, myList, R.layout.movielist_row, 
+							new String[] { "title", "rating", "runtime"}, 
+							new int[]{R.id.title, R.id.rating, R.id.runtime});
+					movieList.setAdapter(adapter);
+				}
+				
+				Log.i("Button", "button has been pressed");
+			}
+		});
 		
 		
 	}

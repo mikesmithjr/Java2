@@ -84,10 +84,12 @@ public class MovieDataService extends IntentService{
 		String response = "";
 		Log.i("Response string", "sending url to network library");
 		response = Network.getURLStringResponse(finalURL);
+		Log.i("response info", response);
 		
 		//Pull the Array of Movies out of JSON Data
 		try {
 			JSONObject object = new JSONObject(response);
+			Log.i("JSONObject", object.toString());
 			//checks to see if the call from the api returns data if not it sends a toast
 			if(object.getString("total").compareTo("0")==0){
 				Log.i("get JSONData", "no movies found");
