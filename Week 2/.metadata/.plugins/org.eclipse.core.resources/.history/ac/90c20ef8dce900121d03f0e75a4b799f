@@ -1,8 +1,0 @@
-<resources>
-    
-    <integer name= "cub">15</integer>
-    <integer name= "yak">5</integer>
-    <integer name= "cessna">10</integer>
-    <integer name= "theBeast">8</integer>
-    
-</resources>
