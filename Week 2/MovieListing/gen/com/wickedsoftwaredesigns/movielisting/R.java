@@ -73,6 +73,7 @@ public final class R {
         public static final int runtime_=0x7f050008;
         public static final int search_for_a_movie=0x7f050003;
         public static final int theater_image=0x7f05000b;
+        public static final int then_use_the_field_below_to_filter_the_list_=0x7f050012;
         public static final int thumbnail_=0x7f05000a;
         public static final int title=0x7f05000d;
     }

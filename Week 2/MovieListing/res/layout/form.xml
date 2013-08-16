@@ -41,6 +41,12 @@
         
     </LinearLayout>
     
+    <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/then_use_the_field_below_to_filter_the_list_"
+            style="@style/InfoLabel"/>
+    
     <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

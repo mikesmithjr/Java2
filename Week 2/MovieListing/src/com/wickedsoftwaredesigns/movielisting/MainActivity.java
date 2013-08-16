@@ -13,9 +13,6 @@ package com.wickedsoftwaredesigns.movielisting;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +20,7 @@ import org.json.JSONObject;
 import com.wickedsoftwaredesigns.libs.FileManagement;
 import com.wickedsoftwaredesigns.libs.Network;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -235,9 +233,19 @@ public class MainActivity extends Activity {
 				//Hide Keyboard
 				 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 				 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-				 cursor = getContentResolver().query(MovieProvider.MovieData.CONTENT_URI, MovieProvider.MovieData.PROJECTION, null, null, null);
+				 
+				 
+				 
+				 Uri filterUri = Uri.parse(filterText.getText().toString());
+				 
+				 cursor = getContentResolver().query(filterUri, MovieProvider.MovieData.PROJECTION, null, null, null);
 				
 				if (cursor.moveToFirst() == true){
+					
+					//Clearing any data from the list
+					myList.clear();
+					
+					//looping over the data to build the list for the list view
 					for (int i = 0; i < cursor.getCount(); i++) {
 						//storing the data into a hashmap into key value pairs
 						HashMap<String, String> displayMap = new HashMap<String, String>();
@@ -253,6 +261,7 @@ public class MainActivity extends Activity {
 					SimpleAdapter adapter = new SimpleAdapter(_context, myList, R.layout.movielist_row, 
 							new String[] { "title", "rating", "runtime"}, 
 							new int[]{R.id.title, R.id.rating, R.id.runtime});
+					
 					movieList.setAdapter(adapter);
 				}
 				

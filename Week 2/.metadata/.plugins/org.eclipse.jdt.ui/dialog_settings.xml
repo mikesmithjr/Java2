@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<item value="/Users/snuffyms/Desktop/eclipse/adt-bundle-mac-x86_64-20130522/sdk/platforms/android-17" key="org.eclipse.jdt.ui.lastextjar"/>
 	<section name="DialogBounds_OverrideMethodDialog">
 		<item value="523" key="DIALOG_WIDTH"/>
 		<item value="262" key="DIALOG_Y_ORIGIN"/>
