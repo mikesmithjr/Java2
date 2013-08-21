@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extracts string &apos;Click to Filter List&apos; into R.string.click_to_filter_list" description="Extracts string &apos;Click to Filter List&apos; into R.string.click_to_filter_list" file="/MovieListing/res/layout/form.xml" flags="6" id="com.android.ide.eclipse.adt.refactoring.extract.string" mode="EDIT_SOURCE" proj="/MovieListing" rplc-all-java="false" rplc-all-xml="false" sel-end="1764" sel-start="1730" stamp="1377053428418" tok-esc="Click to Filter List" xml-attr-name="android:text"/>
+</session>

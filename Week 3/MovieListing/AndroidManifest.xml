@@ -25,6 +25,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity android:name=".FilterActivity" />
         <service android:name="MovieDataService"></service>
         <provider android:name="MovieProvider" android:authorities='com.wickedsoftwaredesigns.movielisting.movieprovider' android:exported="true" tools:ignore="ExportedContentProvider"></provider>
     </application>

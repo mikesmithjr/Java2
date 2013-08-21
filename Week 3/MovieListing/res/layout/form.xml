@@ -41,33 +41,11 @@
         
     </LinearLayout>
     
-    <TextView 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/then_use_the_field_below_to_filter_the_list_"
-            style="@style/InfoLabel"/>
-    
-    <LinearLayout 
+    <Button 
+        android:id="@+id/filterActivityButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        
-        
-        <EditText 
-            android:id="@+id/filterField"
-            android:layout_width="0dip"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:hint="@string/filter_your_movie_list"/>
-        
-        <Button 
-            android:id="@+id/filterButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/filter"/>
-        
-        
-    </LinearLayout>
+        android:text="@string/click_to_filter_list"/>
     
     <ListView 
         android:id="@+id/movielist"
@@ -78,51 +56,7 @@
         
     </ListView>
     
-    <GridLayout 
-        android:id="@+id/moviedata"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1"
-        android:columnCount="2"
-        android:padding="10dip">
-        
-        <TextView 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/movie_title_"
-            style="@style/MovieLabel"/>
-        <TextView 
-            android:id="@+id/data_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/runtime_"
-            style="@style/MovieLabel"/>
-        <TextView 
-            android:id="@+id/data_runtime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/mpaa_rating_"
-            style="@style/MovieLabel"/>
-        <TextView 
-            android:id="@+id/data_rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/thumbnail_"
-            style="@style/MovieLabel"/>
-        <WebView 
-            android:id="@+id/data_thumbnail"
-            android:layout_width="120dp"
-            android:layout_height="178dp"/>
-        
-    </GridLayout>
+    
+   
 
 </LinearLayout>

@@ -29,29 +29,27 @@ public final class R {
         public static final int ic_launcher=0x7f020002;
     }
     public static final class id {
-        public static final int action_settings=0x7f090010;
-        public static final int data_rating=0x7f090008;
-        public static final int data_runtime=0x7f090007;
-        public static final int data_thumbnail=0x7f090009;
-        public static final int data_title=0x7f090006;
-        public static final int filterButton=0x7f090003;
-        public static final int filterField=0x7f090002;
-        public static final int moviedata=0x7f090005;
-        public static final int movielist=0x7f090004;
-        public static final int rating=0x7f09000e;
-        public static final int rating_header=0x7f09000b;
-        public static final int runtime=0x7f09000f;
-        public static final int runtime_header=0x7f09000c;
-        public static final int searchButton=0x7f090001;
-        public static final int searchField=0x7f090000;
-        public static final int title=0x7f09000d;
-        public static final int title_header=0x7f09000a;
+        public static final int action_settings=0x7f09000d;
+        public static final int filterActivityButton=0x7f090005;
+        public static final int filterButton=0x7f090001;
+        public static final int filterField=0x7f090000;
+        public static final int filterlist=0x7f090002;
+        public static final int movielist=0x7f090006;
+        public static final int rating=0x7f09000b;
+        public static final int rating_header=0x7f090008;
+        public static final int runtime=0x7f09000c;
+        public static final int runtime_header=0x7f090009;
+        public static final int searchButton=0x7f090004;
+        public static final int searchField=0x7f090003;
+        public static final int title=0x7f09000a;
+        public static final int title_header=0x7f090007;
     }
     public static final class layout {
-        public static final int form=0x7f030000;
-        public static final int movieinfotemplate=0x7f030001;
-        public static final int movielist_header=0x7f030002;
-        public static final int movielist_row=0x7f030003;
+        public static final int filter=0x7f030000;
+        public static final int form=0x7f030001;
+        public static final int movieinfotemplate=0x7f030002;
+        public static final int movielist_header=0x7f030003;
+        public static final int movielist_row=0x7f030004;
     }
     public static final class menu {
         public static final int main=0x7f080000;
@@ -59,6 +57,7 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
+        public static final int click_to_filter_list=0x7f050013;
         public static final int filter=0x7f050010;
         public static final int filter_your_movie_list=0x7f050011;
         public static final int go=0x7f050004;
