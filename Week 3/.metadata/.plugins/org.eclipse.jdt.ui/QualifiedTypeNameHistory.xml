@@ -23,7 +23,6 @@
 <fullyQualifiedTypeName name="java.net.URL"/>
 <fullyQualifiedTypeName name="android.webkit.WebView"/>
 <fullyQualifiedTypeName name="com.wickedsoftwaredesigns.movielisting.R"/>
-<fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="android.view.ViewGroup"/>
 <fullyQualifiedTypeName name="com.wickedsoftwaredesigns.movielisting.R.style"/>
 <fullyQualifiedTypeName name="android.R"/>
@@ -56,8 +55,9 @@
 <fullyQualifiedTypeName name="com.wickedsoftwaredesigns.movielisting.MovieProvider.MovieData"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.net.Uri"/>
-<fullyQualifiedTypeName name="com.wickedsoftwaredesigns.movielisting.R.id"/>
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
-<fullyQualifiedTypeName name="android.content.Intent"/>
 <fullyQualifiedTypeName name="com.wickedsoftwaredesigns.movielisting.R.layout"/>
+<fullyQualifiedTypeName name="com.wickedsoftwaredesigns.movielisting.R.id"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
 </qualifiedTypeNameHistroy>

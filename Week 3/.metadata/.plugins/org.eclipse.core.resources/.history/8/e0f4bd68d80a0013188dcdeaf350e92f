@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    
+    <ImageView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/theater_image"
+        android:src="@drawable/cinemark_friscobig"
+        android:padding="10dip"/>
+    
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/the_user_searched_for_"
+        style="@style/InfoLabel"/>
+        
+    <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/then_use_the_field_below_to_filter_the_list_"
+            style="@style/InfoLabel"/>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+        
+        <EditText 
+            android:id="@+id/filterField"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="@string/filter_your_movie_list"/>
+        
+        <Button 
+            android:id="@+id/filterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter"/>
+        
+        
+    </LinearLayout>
+    
+    <ListView 
+        android:id="@+id/filterlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="#ffffff"
+        android:drawSelectorOnTop="false">
+        
+    </ListView>
+
+</LinearLayout>

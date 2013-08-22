@@ -66,7 +66,7 @@ public class MovieDataService extends IntentService{
 		//base url for rottentomatoes api call
 		String baseURL = "http://api.rottentomatoes.com/api/public/v1.0/movies.json";
 		//search specific string for api call
-		String movieURL = "?apikey=" + apiKey + "&q=" + movieName + "&page_limit=3";
+		String movieURL = "?apikey=" + apiKey + "&q=" + movieName + "&page_limit=5";
 
 		
 		URL finalURL;

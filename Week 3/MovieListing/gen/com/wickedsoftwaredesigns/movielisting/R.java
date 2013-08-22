@@ -29,20 +29,21 @@ public final class R {
         public static final int ic_launcher=0x7f020002;
     }
     public static final class id {
-        public static final int action_settings=0x7f09000d;
-        public static final int filterActivityButton=0x7f090005;
-        public static final int filterButton=0x7f090001;
-        public static final int filterField=0x7f090000;
-        public static final int filterlist=0x7f090002;
-        public static final int movielist=0x7f090006;
-        public static final int rating=0x7f09000b;
-        public static final int rating_header=0x7f090008;
-        public static final int runtime=0x7f09000c;
-        public static final int runtime_header=0x7f090009;
-        public static final int searchButton=0x7f090004;
-        public static final int searchField=0x7f090003;
-        public static final int title=0x7f09000a;
-        public static final int title_header=0x7f090007;
+        public static final int action_settings=0x7f09000e;
+        public static final int filterActivityButton=0x7f090006;
+        public static final int filterButton=0x7f090002;
+        public static final int filterField=0x7f090001;
+        public static final int filterlist=0x7f090003;
+        public static final int movielist=0x7f090007;
+        public static final int rating=0x7f09000c;
+        public static final int rating_header=0x7f090009;
+        public static final int runtime=0x7f09000d;
+        public static final int runtime_header=0x7f09000a;
+        public static final int searchButton=0x7f090005;
+        public static final int searchField=0x7f090004;
+        public static final int title=0x7f09000b;
+        public static final int title_header=0x7f090008;
+        public static final int userSearched=0x7f090000;
     }
     public static final class layout {
         public static final int filter=0x7f030000;
@@ -71,6 +72,7 @@ public final class R {
         public static final int runtime=0x7f05000f;
         public static final int runtime_=0x7f050008;
         public static final int search_for_a_movie=0x7f050003;
+        public static final int the_user_searched_for_=0x7f050014;
         public static final int theater_image=0x7f05000b;
         public static final int then_use_the_field_below_to_filter_the_list_=0x7f050012;
         public static final int thumbnail_=0x7f05000a;

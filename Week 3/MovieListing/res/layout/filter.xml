@@ -5,13 +5,18 @@
     android:orientation="vertical" >
     
     
-    <ImageView 
+    <TextView 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/theater_image"
-        android:src="@drawable/cinemark_friscobig"
-        android:padding="10dip"/>
+        android:text="@string/the_user_searched_for_"
+        style="@style/InfoLabel"/>
     
+    <TextView 
+        android:id="@+id/userSearched"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       	style="@style/MovieInfo"/>
+        
     <TextView 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

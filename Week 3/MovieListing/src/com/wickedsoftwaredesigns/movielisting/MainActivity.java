@@ -45,6 +45,7 @@ import android.widget.Toast;
  */
 public class MainActivity extends Activity {
 
+	protected static final int FilterActivityRequestCode = 0;
 	public static String JSON_MOVIES = "movies";
 	public static String JSON_TITLE = "title";
 	public static String JSON_RATING = "mpaa_rating";
@@ -149,8 +150,15 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				startActivity(new Intent(_context, FilterActivity.class));
+				
+				EditText movie = (EditText) findViewById(R.id.searchField);
+				//pulling the string value from the search box
+				String movieTitle = movie.getText().toString();
+				
+				Intent intent = new Intent(_context, FilterActivity.class);
+				intent.putExtra("movieName", movieTitle);
+				intent.putExtra("saved", (Serializable)myList);
+				startActivityForResult(intent, FilterActivityRequestCode);
 				
 			}
 		});
@@ -258,6 +266,39 @@ public class MainActivity extends Activity {
 	    	
 	    }
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		if( data != null){
+			Log.i("onResume saved string", "String has data");
+    		Log.i("Saved String", data.getExtras().getStringArrayList("saved").toString());
+    		myList = (ArrayList<HashMap<String, String>>) data.getExtras().getSerializable("saved");
+    		//building a simple adapter to process the info into a listview
+			SimpleAdapter adapter = new SimpleAdapter(_context, myList, R.layout.movielist_row, 
+					new String[] { "title", "rating", "runtime"}, 
+					new int[]{R.id.title, R.id.rating, R.id.runtime});
+			movieList.setAdapter(adapter);
+		}
+	}
+	/*@SuppressWarnings("unchecked")
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		if(getIntent().getExtras().getStringArrayList("saved") !=null){
+    		Log.i("onResume saved string", "String has data");
+    		Log.i("Saved String", getIntent().getExtras().getStringArrayList("saved").toString());
+    		myList = (ArrayList<HashMap<String, String>>) getIntent().getExtras().getSerializable("saved");
+    		//building a simple adapter to process the info into a listview
+			SimpleAdapter adapter = new SimpleAdapter(_context, myList, R.layout.movielist_row, 
+					new String[] { "title", "rating", "runtime"}, 
+					new int[]{R.id.title, R.id.rating, R.id.runtime});
+			movieList.setAdapter(adapter);
+			
+		}
+	}*/
 
 	/*
 	 * (non-Javadoc)

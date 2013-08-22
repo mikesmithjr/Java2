@@ -27,5 +27,6 @@
         <string name="filter_your_movie_list">Filter your Movie List</string>
         <string name="then_use_the_field_below_to_filter_the_list_">Then use the field below to filter the list.</string>
         <string name="click_to_filter_list">Click to Filter List</string>
+        <string name="the_user_searched_for_">The user searched for:</string>
 
 </resources>

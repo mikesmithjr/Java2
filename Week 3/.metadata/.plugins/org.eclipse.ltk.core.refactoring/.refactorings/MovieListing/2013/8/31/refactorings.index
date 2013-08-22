@@ -1,0 +1,16 @@
+1375329371800	Extracts string 'Search for a Movie' into R.string.search_for_a_movie
+1375329415120	Extracts string 'Go' into R.string.go
+1375330072965	Extracts string 'Please Search for a Movie' into R.string.please_search_for_a_movie
+1375330080472	Extracts string 'Or Choose an Option below' into R.string.or_choose_an_option_below
+1375334005172	Extracts string 'Movie Title: ' into R.string.movie_title_
+1375334012203	Extracts string 'Runtime: ' into R.string.runtime_
+1375334018395	Extracts string 'MPAA Rating: ' into R.string.mpaa_rating_
+1375334029236	Extracts string 'Thumbnail: ' into R.string.thumbnail_
+1375334384629	Delete element
+1375334407573	Delete element
+1375341639435	Rename resource 'movielayouttemplate.xml'
+1375341771014	Delete element
+1375341826778	Rename resource 'movielabeltemplate.xml'
+1375408615344	Rename resource 'cinemarkFrisco.jpg'
+1375409492344	Extracts string 'theater image' into R.string.theater_image
+1375409547380	Extracts string 'Please Choose an Option' into R.string.please_choose_an_option
