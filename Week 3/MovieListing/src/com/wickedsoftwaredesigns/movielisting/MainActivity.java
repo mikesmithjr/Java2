@@ -19,7 +19,9 @@ import org.json.JSONObject;
 
 import com.wickedsoftwaredesigns.libs.FileManagement;
 import com.wickedsoftwaredesigns.libs.Network;
+import com.wickedsoftwaredesigns.libs.ToastFactory;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -35,9 +37,9 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -115,6 +117,7 @@ public class MainActivity extends Activity {
 	protected void onSaveInstanceState(Bundle savedInstanceState){
 		super.onSaveInstanceState(savedInstanceState);
 		Log.i("onSaveInstanceState", "Save Started");
+		//Saving the movie list to the bundle
 		if(myList != null && !myList.isEmpty()){
 			savedInstanceState.putSerializable("saved", (Serializable)myList);
 		}
@@ -130,17 +133,37 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.form);
 		
-		
+		//connect to the imageview
+		ImageView theater = (ImageView) findViewById(R.id.theaterPic);
+		//create onclicklistener for image
+		theater.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				//save url to string
+				String url = "http://www.cinemark.com/mobiletheatreshowtimes.aspx?node_id=1730";
+				//create intent to launch browser
+				Intent intent = new Intent(Intent.ACTION_VIEW);
+				//parse uri from string
+				Uri uri = Uri.parse(url);
+				//set uri string as data for intent
+				intent.setData(uri);
+				//start intent
+				startActivity(intent);
+				
+			}
+		});
 		
 		//Detect Network Connection
 		connected = Network.getConnectionStatus(_context);
 		if(connected){
 			Log.i("Network Connection", Network.getConnectionType(_context));
-			Toast toast = Toast.makeText(_context, "You are connected via " + Network.getConnectionType(_context)+ " network", Toast.LENGTH_SHORT);
-			toast.show();
+			
+			ToastFactory.shortToast(_context, "You are connected via " + Network.getConnectionType(_context)+ " network");
 		}else{
-			Toast toast = Toast.makeText(_context, "No Connection Found", Toast.LENGTH_SHORT);
-			toast.show();
+			
+			ToastFactory.shortToast(_context, "No Connection Found");
 		}
 		
 		//setting up filter button
@@ -151,14 +174,18 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				
+				//finding searchfield editText
 				EditText movie = (EditText) findViewById(R.id.searchField);
 				//pulling the string value from the search box
 				String movieTitle = movie.getText().toString();
-				
+				//creating new intent to launch FilterActivity
 				Intent intent = new Intent(_context, FilterActivity.class);
+				//putting movie title as extra
 				intent.putExtra("movieName", movieTitle);
+				//sending mylist contents as data
 				intent.putExtra("saved", (Serializable)myList);
-				startActivityForResult(intent, FilterActivityRequestCode);
+				//launching the activity prepairing for results
+				startActivityForResult(intent, 0);
 				
 			}
 		});
@@ -192,7 +219,8 @@ public class MainActivity extends Activity {
 				//checking to see if the search field is blank then notifiying the user
 				if(movie.getText().toString().length() == 0){
 					Log.i("Movie Search", "no movie name entered");
-					Toast.makeText(_context, "Please Enter a Movie Title", Toast.LENGTH_LONG).show();
+					
+					ToastFactory.longToast(_context, "Please Enter a Movie Title");
 					return;
 				}
 				//setting up the handler to process the user's search 
@@ -209,7 +237,8 @@ public class MainActivity extends Activity {
 						
 							try {
 								Log.i("handleMessage", "pulling movie info");
-								Toast.makeText(_context, "Loading Movie Info Please Wait", Toast.LENGTH_LONG).show();
+								
+								ToastFactory.shortToast(_context, "Loading Movie Info Please Wait");
 								updateUI();
 								
 								
@@ -266,14 +295,17 @@ public class MainActivity extends Activity {
 	    	
 	    }
 	}
+	//accepts data from FilterActivity upon finish
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-		if( data != null){
+		//checks the Result code, request code, and checks if data is not null
+		if( resultCode == RESULT_OK && requestCode == 0 && data != null){
 			Log.i("onResume saved string", "String has data");
     		Log.i("Saved String", data.getExtras().getStringArrayList("saved").toString());
+    		//pulls the filtered list from the data and serializes it to myList
     		myList = (ArrayList<HashMap<String, String>>) data.getExtras().getSerializable("saved");
     		//building a simple adapter to process the info into a listview
 			SimpleAdapter adapter = new SimpleAdapter(_context, myList, R.layout.movielist_row, 
@@ -282,23 +314,7 @@ public class MainActivity extends Activity {
 			movieList.setAdapter(adapter);
 		}
 	}
-	/*@SuppressWarnings("unchecked")
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		if(getIntent().getExtras().getStringArrayList("saved") !=null){
-    		Log.i("onResume saved string", "String has data");
-    		Log.i("Saved String", getIntent().getExtras().getStringArrayList("saved").toString());
-    		myList = (ArrayList<HashMap<String, String>>) getIntent().getExtras().getSerializable("saved");
-    		//building a simple adapter to process the info into a listview
-			SimpleAdapter adapter = new SimpleAdapter(_context, myList, R.layout.movielist_row, 
-					new String[] { "title", "rating", "runtime"}, 
-					new int[]{R.id.title, R.id.rating, R.id.runtime});
-			movieList.setAdapter(adapter);
-			
-		}
-	}*/
+	
 
 	/*
 	 * (non-Javadoc)

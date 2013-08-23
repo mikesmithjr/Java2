@@ -28,5 +28,6 @@
         <string name="then_use_the_field_below_to_filter_the_list_">Then use the field below to filter the list.</string>
         <string name="click_to_filter_list">Click to Filter List</string>
         <string name="the_user_searched_for_">The user searched for:</string>
+        <string name="click_image_to_see_current_showtimes">Click Image to See Current Showtimes</string>
 
 </resources>

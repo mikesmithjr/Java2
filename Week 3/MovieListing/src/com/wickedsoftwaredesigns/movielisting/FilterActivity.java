@@ -1,3 +1,12 @@
+/*
+ * project     MovieListing
+ * 
+ * package		com.wickedsoftwaredesigns.movielisting
+ * 
+ * @author     Michael R. Smith Jr
+ * 
+ * date			Aug 22, 2013
+ */
 package com.wickedsoftwaredesigns.movielisting;
 
 import java.io.Serializable;
@@ -19,6 +28,10 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FilterActivity.
+ */
 public class FilterActivity extends Activity {
 
 	Context _context = this;
@@ -28,6 +41,10 @@ public class FilterActivity extends Activity {
 	ListView filterList;
 	
 	public ArrayList<HashMap<String, String>> myList = new ArrayList<HashMap<String,String>>();
+	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +58,14 @@ public class FilterActivity extends Activity {
 		View listHeader = getLayoutInflater().inflate(R.layout.movielist_header, null);
 		filterList.addHeaderView(listHeader);
 		
-		
+		//pulls the movie title from the extras and adds it to the userSearched textview
 		TextView userSearched = (TextView) findViewById(R.id.userSearched);
 		userSearched.setText(getIntent().getExtras().getString("movieName"));
-		
+		//checks to make sure the data in the saved key is not null
 		if(getIntent().getExtras().getStringArrayList("saved") !=null){
     		Log.i("onFilterActivity saved string", "String has data");
     		Log.i("Saved String", getIntent().getExtras().getStringArrayList("saved").toString());
+    		//pulls the data for the listview from the extras and serializes it into the listview
     		myList = (ArrayList<HashMap<String, String>>) getIntent().getExtras().getSerializable("saved");
     		//building a simple adapter to process the info into a listview
 			SimpleAdapter adapter = new SimpleAdapter(_context, myList, R.layout.movielist_row, 
@@ -112,13 +130,21 @@ public class FilterActivity extends Activity {
 				
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#finish()
+	 * sends the filtered list data back to the MainActivity upon completion of the filter activity
+	 */
 	@Override
-	protected void onPause() {
+	public void finish() {
 		// TODO Auto-generated method stub
-		super.onPause();
-		Log.i("onDestroy", "activity destroyed");
+		
+		Log.i("onFinish", "activity finished");
+		//creates new empty intent
 		Intent intent = new Intent();
+		//puts the contents of the listview into a serilaizable key in the extras of the intent
 		intent.putExtra("saved", (Serializable)myList);
+		//sends the activity result code as ok and sends the intent
 		setResult(Activity.RESULT_OK, intent);
+		super.finish();
 	}
 }

@@ -7,11 +7,18 @@
 
     
     <ImageView 
+        android:id="@+id/theaterPic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/theater_image"
         android:src="@drawable/cinemark_friscobig"
         android:padding="10dip"/>
+    
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/click_image_to_see_current_showtimes"
+        android:gravity="center_horizontal"/>
     
     <TextView 
             android:layout_width="match_parent"
