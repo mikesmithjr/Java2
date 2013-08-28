@@ -41,7 +41,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-
+// TODO: Auto-generated Javadoc
 /**
  * The Class MainActivity.
  */
@@ -107,7 +107,7 @@ public class MainActivity extends Activity {
 					filterActivityButton.setVisibility(View.VISIBLE);
 				
 		} catch (JSONException e) {
-			
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	
@@ -228,7 +228,7 @@ public class MainActivity extends Activity {
 
 					@Override
 					public void handleMessage(Message msg) {
-						
+						// TODO Auto-generated method stub
 						
 						
 						
@@ -299,7 +299,7 @@ public class MainActivity extends Activity {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		
+		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		//checks the Result code, request code, and checks if data is not null
 		if( resultCode == RESULT_OK && requestCode == 0 && data != null){

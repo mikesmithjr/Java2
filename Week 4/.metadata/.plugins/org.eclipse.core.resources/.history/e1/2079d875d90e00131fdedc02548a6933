@@ -41,7 +41,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-
+// TODO: Auto-generated Javadoc
 /**
  * The Class MainActivity.
  */
@@ -107,7 +107,7 @@ public class MainActivity extends Activity {
 					filterActivityButton.setVisibility(View.VISIBLE);
 				
 		} catch (JSONException e) {
-			
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	
