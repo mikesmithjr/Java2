@@ -1,0 +1,130 @@
+package com.wickedsoftwaredesigns.movielisting;
+
+import java.io.Serializable;
+
+import com.wickedsoftwaredesigns.libs.Network;
+import com.wickedsoftwaredesigns.libs.ToastFactory;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.Messenger;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+
+public class FormFragment extends Fragment {
+
+	private FormListener listener;
+	
+	public interface FormListener{
+		public void onMovieSearch(String movie);
+		public void onFilterList(String filterMovieTitle);
+	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+		 super.onCreateView(inflater, container, savedInstanceState);
+		 
+		 LinearLayout view = (LinearLayout) inflater.inflate(R.layout.form, container, false);
+		 
+		//connect to the imageview
+			ImageView theater = (ImageView) view.findViewById(R.id.theaterPic);
+			//create onclicklistener for image
+			theater.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					
+					//save url to string
+					String url = "http://www.cinemark.com/mobiletheatreshowtimes.aspx?node_id=1730";
+					//create intent to launch browser
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					//parse uri from string
+					Uri uri = Uri.parse(url);
+					//set uri string as data for intent
+					intent.setData(uri);
+					//start intent
+					startActivity(intent);
+					
+				}
+			});
+			
+			
+			
+			//setting up filter button
+			Button filterActivityButton = (Button) view.findViewById(R.id.filterActivityButton);
+			filterActivityButton.setVisibility(View.GONE);
+			filterActivityButton.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					
+					//finding searchfield editText
+					EditText movie = (EditText) getActivity().findViewById(R.id.searchField);
+					//pulling the string value from the search box
+					String filterMovieTitle = movie.getText().toString();
+					listener.onFilterList(filterMovieTitle);
+					
+				}
+			});
+			
+			//finding the movie list listview and inflating the movielist header layout then adding it to the listview
+			ListView movieList = (ListView) view.findViewById(R.id.movielist);
+			View listHeader = getActivity().getLayoutInflater().inflate(R.layout.movielist_header, null);
+			movieList.addHeaderView(listHeader);
+			
+			//Building search button functionality
+			Button searchButton = (Button) view.findViewById(R.id.searchButton);
+			searchButton.setOnClickListener(new View.OnClickListener() {
+				
+				@SuppressLint("HandlerLeak")
+				@Override
+				//building the onclick function for the button
+				public void onClick(View v) {
+					
+					
+					//Hide Keyboard
+					 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+					 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+					
+					EditText movie = (EditText) getActivity().findViewById(R.id.searchField);
+					//pulling the string value from the search box
+					String movieTitle = movie.getText().toString();
+					//replacing any spaces with + for the api
+					movieTitle = movieTitle.replace(" ", "+");
+					
+					Log.i("Button", "button has been pressed");
+					
+					listener.onMovieSearch(movieTitle);
+				}
+			});
+		 
+		 return view;
+	}
+	
+	@Override
+	public void onAttach(Activity activity){
+		super.onAttach(activity);
+		
+		try{
+			listener = (FormListener) activity;
+		}catch (ClassCastException e){
+			throw new ClassCastException(activity.toString() + " must implement FormListener");
+		}
+	}
+}

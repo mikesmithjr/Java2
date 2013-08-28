@@ -21,7 +21,6 @@ import com.wickedsoftwaredesigns.libs.FileManagement;
 import com.wickedsoftwaredesigns.libs.Network;
 import com.wickedsoftwaredesigns.libs.ToastFactory;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -33,11 +32,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -45,7 +40,7 @@ import android.widget.SimpleAdapter;
 /**
  * The Class MainActivity.
  */
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements FormFragment.FormListener{
 
 	protected static final int FilterActivityRequestCode = 0;
 	public static String JSON_MOVIES = "movies";
@@ -99,6 +94,8 @@ public class MainActivity extends Activity {
 						myList.add(displayMap);
 						Log.i("myList Hashmap", myList.toString());
 					}
+					
+					Log.i("mylist", myList.toString());
 					//building a simple adapter to process the info into a listview
 					SimpleAdapter adapter = new SimpleAdapter(_context, myList, R.layout.movielist_row, 
 							new String[] { "title", "rating", "runtime"}, 
@@ -131,29 +128,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.form);
-		
-		//connect to the imageview
-		ImageView theater = (ImageView) findViewById(R.id.theaterPic);
-		//create onclicklistener for image
-		theater.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-				//save url to string
-				String url = "http://www.cinemark.com/mobiletheatreshowtimes.aspx?node_id=1730";
-				//create intent to launch browser
-				Intent intent = new Intent(Intent.ACTION_VIEW);
-				//parse uri from string
-				Uri uri = Uri.parse(url);
-				//set uri string as data for intent
-				intent.setData(uri);
-				//start intent
-				startActivity(intent);
-				
-			}
-		});
+		setContentView(R.layout.formfrag);
 		
 		//Detect Network Connection
 		connected = Network.getConnectionStatus(_context);
@@ -165,107 +140,6 @@ public class MainActivity extends Activity {
 			
 			ToastFactory.shortToast(_context, "No Connection Found");
 		}
-		
-		//setting up filter button
-		filterActivityButton = (Button) findViewById(R.id.filterActivityButton);
-		filterActivityButton.setVisibility(View.GONE);
-		filterActivityButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-				//finding searchfield editText
-				EditText movie = (EditText) findViewById(R.id.searchField);
-				//pulling the string value from the search box
-				String movieTitle = movie.getText().toString();
-				//creating new intent to launch FilterActivity
-				Intent intent = new Intent(_context, FilterActivity.class);
-				//putting movie title as extra
-				intent.putExtra("movieName", movieTitle);
-				//sending mylist contents as data
-				intent.putExtra("saved", (Serializable)myList);
-				//launching the activity prepairing for results
-				startActivityForResult(intent, 0);
-				
-			}
-		});
-		
-		//finding the movie list listview and inflating the movielist header layout then adding it to the listview
-		movieList = (ListView) findViewById(R.id.movielist);
-		View listHeader = getLayoutInflater().inflate(R.layout.movielist_header, null);
-		movieList.addHeaderView(listHeader);
-		
-		//Building search button functionality
-		Button searchButton = (Button) findViewById(R.id.searchButton);
-		searchButton.setOnClickListener(new View.OnClickListener() {
-			
-			@SuppressLint("HandlerLeak")
-			@Override
-			//building the onclick function for the button
-			public void onClick(View v) {
-				
-				
-				//Hide Keyboard
-				 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-				 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-				
-				EditText movie = (EditText) findViewById(R.id.searchField);
-				//pulling the string value from the search box
-				String movieTitle = movie.getText().toString();
-				//replacing any spaces with + for the api
-				movieTitle = movieTitle.replace(" ", "+");
-				
-				Log.i("Button", "button has been pressed");
-				//checking to see if the search field is blank then notifiying the user
-				if(movie.getText().toString().length() == 0){
-					Log.i("Movie Search", "no movie name entered");
-					
-					ToastFactory.longToast(_context, "Please Enter a Movie Title");
-					return;
-				}
-				//setting up the handler to process the user's search 
-				Handler moviedatahandler = new Handler(){
-
-					@Override
-					public void handleMessage(Message msg) {
-						
-						
-						
-						
-						if(msg.arg1 == RESULT_OK){
-							
-						
-							try {
-								Log.i("handleMessage", "pulling movie info");
-								
-								ToastFactory.shortToast(_context, "Loading Movie Info Please Wait");
-								updateUI();
-								
-								
-							} catch (Exception e) {
-								
-								Log.e("Handler Response", e.getMessage().toString());
-								
-								e.printStackTrace();
-							}
-							
-							
-						}
-					}
-					
-				};
-				//starting the messenger for the service
-				Messenger moviedatamessanger = new Messenger(moviedatahandler);
-				//creating the intent
-				Intent startMoviedataIntent = new Intent(_context, MovieDataService.class);
-				//putting the messenger into the extras
-				startMoviedataIntent.putExtra(MovieDataService.MESSENGER_KEY, moviedatamessanger);
-				//passing the movie title from the user search box to the moviedataservice
-				startMoviedataIntent.putExtra(MovieDataService.MOVIE_KEY, movieTitle);
-				//starting the service
-				startService(startMoviedataIntent);
-			}
-		});
 		
 		
 		
@@ -326,6 +200,69 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+
+	@SuppressLint("HandlerLeak")
+	@Override
+	public void onMovieSearch(String movie) {
+		
+		//checking to see if the search field is blank then notifiying the user
+		if(movie.length() == 0){
+			Log.i("Movie Search", "no movie name entered");
+			
+			ToastFactory.longToast(_context, "Please Enter a Movie Title");
+			return;
+		}
+		//setting up the handler to process the user's search 
+		Handler moviedatahandler = new Handler(){
+
+			@Override
+			public void handleMessage(Message msg) {
+				
+				
+				
+				
+				if(msg.arg1 == RESULT_OK){
+					
+				
+					
+						Log.i("handleMessage", "pulling movie info");
+						
+						ToastFactory.shortToast(_context, "Loading Movie Info Please Wait");
+						updateUI();
+						
+						
+					
+					
+					
+				}
+			}
+			
+		};
+		//starting the messenger for the service
+		Messenger moviedatamessanger = new Messenger(moviedatahandler);
+		//creating the intent
+		Intent startMoviedataIntent = new Intent(_context, MovieDataService.class);
+		//putting the messenger into the extras
+		startMoviedataIntent.putExtra(MovieDataService.MESSENGER_KEY, moviedatamessanger);
+		//passing the movie title from the user search box to the moviedataservice
+		startMoviedataIntent.putExtra(MovieDataService.MOVIE_KEY, movie);
+		//starting the service
+		startService(startMoviedataIntent);
+		
+	}
+
+	@Override
+	public void onFilterList(String filterMovieTitle) {
+		//creating new intent to launch FilterActivity
+		Intent intent = new Intent(_context, FilterActivity.class);
+		//putting movie title as extra
+		intent.putExtra("movieName", filterMovieTitle);
+		//sending mylist contents as data
+		intent.putExtra("saved", (Serializable)myList);
+		//launching the activity prepairing for results
+		startActivityForResult(intent, 0);
+		
 	}
 
 	

@@ -1,0 +1,12 @@
+package com.wickedsoftwaredesigns.movielisting;
+
+import android.app.Fragment;
+
+public class FormFragment extends Fragment {
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+		super.onCreateView(inflater, container, savedInstanceState);
+	}
+	
+}
