@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.io.FileInputStream"/>
-<fullyQualifiedTypeName name="java.io.BufferedInputStream"/>
-<fullyQualifiedTypeName name="java.lang.StringBuffer"/>
-<fullyQualifiedTypeName name="java.io.FileNotFoundException"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="java.io.ObjectInputStream"/>
 <fullyQualifiedTypeName name="java.lang.ClassNotFoundException"/>
@@ -24,8 +20,6 @@
 <fullyQualifiedTypeName name="com.wickedsoftwaredesigns.movielisting.MovieDataService"/>
 <fullyQualifiedTypeName name="android.os.Messenger"/>
 <fullyQualifiedTypeName name="android.os.Message"/>
-<fullyQualifiedTypeName name="android.app.Activity"/>
-<fullyQualifiedTypeName name="android.widget.ListView"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="android.widget.SimpleAdapter"/>
@@ -40,12 +34,10 @@
 <fullyQualifiedTypeName name="android.database.MatrixCursor"/>
 <fullyQualifiedTypeName name="android.content.CursorLoader"/>
 <fullyQualifiedTypeName name="android.widget.CursorAdapter"/>
-<fullyQualifiedTypeName name="android.database.Cursor"/>
 <fullyQualifiedTypeName name="android.content.ContentResolver"/>
 <fullyQualifiedTypeName name="com.wickedsoftwaredesigns.movielisting.MovieProvider"/>
 <fullyQualifiedTypeName name="com.wickedsoftwaredesigns.movielisting.MovieProvider.MovieData"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
-<fullyQualifiedTypeName name="com.wickedsoftwaredesigns.movielisting.R.id"/>
 <fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="android.content.Intent"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
@@ -57,7 +49,15 @@
 <fullyQualifiedTypeName name="android.view.View"/>
 <fullyQualifiedTypeName name="android.view.LayoutInflater"/>
 <fullyQualifiedTypeName name="android.view.ViewGroup"/>
-<fullyQualifiedTypeName name="android.os.Bundle"/>
 <fullyQualifiedTypeName name="android.widget.LinearLayout"/>
+<fullyQualifiedTypeName name="com.wickedsoftwaredesigns.movielisting.FormFragment.FormListener"/>
 <fullyQualifiedTypeName name="com.wickedsoftwaredesigns.movielisting.R.layout"/>
+<fullyQualifiedTypeName name="android.widget.Filter.FilterListener"/>
+<fullyQualifiedTypeName name="java.lang.ClassCastException"/>
+<fullyQualifiedTypeName name="android.os.Bundle"/>
+<fullyQualifiedTypeName name="android.widget.ListView"/>
+<fullyQualifiedTypeName name="com.wickedsoftwaredesigns.movielisting.FilterFragment.FilterListener"/>
+<fullyQualifiedTypeName name="android.database.Cursor"/>
+<fullyQualifiedTypeName name="com.wickedsoftwaredesigns.movielisting.R.id"/>
+<fullyQualifiedTypeName name="android.app.Activity"/>
 </qualifiedTypeNameHistroy>

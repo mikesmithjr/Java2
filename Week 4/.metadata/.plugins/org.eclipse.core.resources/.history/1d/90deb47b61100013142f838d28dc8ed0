@@ -1,0 +1,37 @@
+package com.wickedsoftwaredesigns.movielisting;
+
+import android.app.Activity;
+import android.app.Fragment;
+import android.os.Bundle;
+import android.widget.Filter.FilterListener;
+
+public class FilterFragment extends Fragment {
+	
+	
+	private FilterListener listener;
+	
+	public interface FilterListener{
+		public void onFilterSelected(String movieName);
+	};
+	
+	@Override
+	public void onAttach(Activity activity){
+		super.onAttach(activity);
+		try{
+			listener = (FilterListener) activity;
+		} catch (ClassCastException e){
+			throw new ClassCastException(activity.toString() + " must implement FilterListener");
+		}
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		
+		
+		
+		
+	}
+	
+
+}

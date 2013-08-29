@@ -31,7 +31,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -68,6 +67,7 @@ public class MainActivity extends Activity implements FormFragment.FormListener{
 		JSONObject job = null;
 		JSONArray movies = null;
 		
+		movieList = (ListView) findViewById(R.id.movielist);
 		
 		try {
 			//creating the JSON Object
@@ -101,7 +101,7 @@ public class MainActivity extends Activity implements FormFragment.FormListener{
 							new String[] { "title", "rating", "runtime"}, 
 							new int[]{R.id.title, R.id.rating, R.id.runtime});
 					movieList.setAdapter(adapter);
-					filterActivityButton.setVisibility(View.VISIBLE);
+					
 				
 		} catch (JSONException e) {
 			
@@ -129,6 +129,7 @@ public class MainActivity extends Activity implements FormFragment.FormListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.formfrag);
+		
 		
 		//Detect Network Connection
 		connected = Network.getConnectionStatus(_context);
