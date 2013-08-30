@@ -155,7 +155,7 @@ public class MainActivity extends Activity implements FormFragment.FormListener{
 	 // Restore state members from saved instance
 	    if(savedInstanceState != null){
 	    	Log.i("onRestore savedInstanceState", "Bundle has data");
-	    	//Log.i("savedInstanceState", savedInstanceState.JSONArray("saved"));
+	    	//Log.i("savedInstanceState", savedInstanceState.getStringArrayList("saved").toString());
 	    	if(savedInstanceState.getStringArrayList("saved") !=null){
 	    		Log.i("onRestore saved string", "String has data");
 	    		Log.i("Saved String", savedInstanceState.getStringArrayList("saved").toString());
@@ -220,22 +220,14 @@ public class MainActivity extends Activity implements FormFragment.FormListener{
 			@Override
 			public void handleMessage(Message msg) {
 				
-				
-				
-				
+	
 				if(msg.arg1 == RESULT_OK){
-					
 				
-					
 						Log.i("handleMessage", "pulling movie info");
 						
 						ToastFactory.shortToast(_context, "Loading Movie Info Please Wait");
 						updateUI();
-						
-						
-					
-					
-					
+	
 				}
 			}
 			

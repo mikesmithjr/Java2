@@ -1,11 +1,13 @@
 package com.wickedsoftwaredesigns.movielisting;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,10 +21,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 public class FilterFragment extends Fragment {
 	
 	Button filterButton;
+	Button backToMain;
 	EditText filterText;
 	Cursor cursor;
 	ListView filterList;
@@ -33,7 +37,7 @@ public class FilterFragment extends Fragment {
 	private FilterListener listener;
 	
 	public interface FilterListener{
-		public void onFilterSelected(String movieName);
+		public void onFilterSelected(Intent intent);
 	};
 	
 	@Override
@@ -46,16 +50,41 @@ public class FilterFragment extends Fragment {
 		}
 	}
 	
+	
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		 super.onCreateView(inflater, container, savedInstanceState);
 	
 		 LinearLayout view = (LinearLayout) inflater.inflate(R.layout.filter, container, false);
 		 
-		//setting up filter fields
+		//finding the movie list listview and inflating the movielist header layout then adding it to the listview
+			filterList = (ListView) view.findViewById(R.id.filterlist);
+			View listHeader = getActivity().getLayoutInflater().inflate(R.layout.movielist_header, null);
+			filterList.addHeaderView(listHeader);
 		 
-		 	filterList = (ListView) view.findViewById(R.id.filterlist);
+		
+		 
 		 	
+		 	//pulls the movie title from the extras and adds it to the userSearched textview
+			TextView userSearched = (TextView) view.findViewById(R.id.userSearched);
+			Intent intent = getActivity().getIntent();
+			userSearched.setText(intent.getExtras().getString("movieName"));
+			//checks to make sure the data in the saved key is not null
+			if(intent.getExtras().getStringArrayList("saved") !=null){
+	    		Log.i("onFilterActivity saved string", "String has data");
+	    		Log.i("Saved String", intent.getExtras().getStringArrayList("saved").toString());
+	    		//pulls the data for the listview from the extras and serializes it into the listview
+	    		myList = (ArrayList<HashMap<String, String>>) intent.getExtras().getSerializable("saved");
+	    		//building a simple adapter to process the info into a listview
+				SimpleAdapter adapter = new SimpleAdapter(getActivity(), myList, R.layout.movielist_row, 
+						new String[] { "title", "rating", "runtime"}, 
+						new int[]{R.id.title, R.id.rating, R.id.runtime});
+				filterList.setAdapter(adapter);
+				
+			}
+			//setting up filter fields
 			filterText = (EditText) view.findViewById(R.id.filterField);
 			filterText.setText(MovieProvider.MovieData.CONTENT_URI.toString());
 			
@@ -106,6 +135,20 @@ public class FilterFragment extends Fragment {
 				}
 			});
 		 
+			backToMain = (Button) view.findViewById(R.id.backtomain);
+			backToMain.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					
+					Intent data = new Intent();
+					//puts the contents of the listview into a serilaizable key in the extras of the intent
+					data.putExtra("saved", (Serializable)myList);
+					
+					listener.onFilterSelected(data);
+					
+				}
+			});
 		 return view;
 	}
 }

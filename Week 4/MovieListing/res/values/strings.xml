@@ -29,5 +29,6 @@
         <string name="click_to_filter_list">Click to Filter List</string>
         <string name="the_user_searched_for_">The user searched for:</string>
         <string name="click_image_to_see_current_showtimes">Click Image to See Current Showtimes</string>
+        <string name="back_to_main_list">Back to Main List</string>
 
 </resources>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extracts string &apos;Back to Main List&apos; into R.string.back_to_main_list" description="Extracts string &apos;Back to Main List&apos; into R.string.back_to_main_list" file="/MovieListing/res/layout/filter.xml" flags="6" id="com.android.ide.eclipse.adt.refactoring.extract.string" mode="EDIT_SOURCE" proj="/MovieListing" rplc-all-java="false" rplc-all-xml="false" sel-end="1945" sel-start="1914" stamp="1377825383706" tok-esc="Back to Main List" xml-attr-name="android:text"/>
+</session>

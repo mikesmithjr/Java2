@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="java.io.ObjectInputStream"/>
 <fullyQualifiedTypeName name="java.lang.ClassNotFoundException"/>
 <fullyQualifiedTypeName name="android.widget.GridLayout"/>
@@ -39,12 +38,10 @@
 <fullyQualifiedTypeName name="com.wickedsoftwaredesigns.movielisting.MovieProvider.MovieData"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.widget.TextView"/>
-<fullyQualifiedTypeName name="android.content.Intent"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="com.wickedsoftwaredesigns.libs.ToastFactory"/>
 <fullyQualifiedTypeName name="android.widget.ImageView"/>
-<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="android.net.Uri"/>
 <fullyQualifiedTypeName name="android.view.View"/>
 <fullyQualifiedTypeName name="android.view.LayoutInflater"/>
@@ -56,8 +53,11 @@
 <fullyQualifiedTypeName name="java.lang.ClassCastException"/>
 <fullyQualifiedTypeName name="android.os.Bundle"/>
 <fullyQualifiedTypeName name="android.widget.ListView"/>
-<fullyQualifiedTypeName name="com.wickedsoftwaredesigns.movielisting.FilterFragment.FilterListener"/>
 <fullyQualifiedTypeName name="android.database.Cursor"/>
-<fullyQualifiedTypeName name="com.wickedsoftwaredesigns.movielisting.R.id"/>
 <fullyQualifiedTypeName name="android.app.Activity"/>
+<fullyQualifiedTypeName name="com.wickedsoftwaredesigns.movielisting.FilterFragment.FilterListener"/>
+<fullyQualifiedTypeName name="com.wickedsoftwaredesigns.movielisting.R.id"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
+<fullyQualifiedTypeName name="android.app.Fragment.SavedState"/>
 </qualifiedTypeNameHistroy>

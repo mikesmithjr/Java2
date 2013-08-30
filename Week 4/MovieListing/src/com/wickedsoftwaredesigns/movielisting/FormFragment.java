@@ -34,7 +34,7 @@ public class FormFragment extends Fragment {
 		 
 		 LinearLayout view = (LinearLayout) inflater.inflate(R.layout.form, container, false);
 		 
-		
+		 setRetainInstance(true);
 		 
 		//connect to the imageview
 			ImageView theater = (ImageView) view.findViewById(R.id.theaterPic);
@@ -122,4 +122,5 @@ public class FormFragment extends Fragment {
 			throw new ClassCastException(activity.toString() + " must implement FormListener");
 		}
 	}
+	
 }
