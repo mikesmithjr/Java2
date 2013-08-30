@@ -1,12 +1,3 @@
-/*
- * project     MovieListing
- * 
- * package		com.wickedsoftwaredesigns.movielisting
- * 
- * @author     Michael R. Smith Jr
- * 
- * date			Aug 29, 2013
- */
 package com.wickedsoftwaredesigns.movielisting;
 
 import java.io.Serializable;
@@ -32,10 +23,6 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class FilterFragment.
- */
 public class FilterFragment extends Fragment {
 	
 	Button filterButton;
@@ -49,30 +36,10 @@ public class FilterFragment extends Fragment {
 	
 	private FilterListener listener;
 	
-	/**
-	 * The listener interface for receiving filter events.
-	 * The class that is interested in processing a filter
-	 * event implements this interface, and the object created
-	 * with that class is registered with a component using the
-	 * component's <code>addFilterListener<code> method. When
-	 * the filter event occurs, that object's appropriate
-	 * method is invoked.
-	 *
-	 * @see FilterEvent
-	 */
 	public interface FilterListener{
-		
-		/**
-		 * On filter selected.
-		 *
-		 * @param intent the intent
-		 */
 		public void onFilterSelected(Intent intent);
 	};
 	
-	/* (non-Javadoc)
-	 * @see android.app.Fragment#onAttach(android.app.Activity)
-	 */
 	@Override
 	public void onAttach(Activity activity){
 		super.onAttach(activity);
@@ -85,9 +52,6 @@ public class FilterFragment extends Fragment {
 	
 	
 	
-	/* (non-Javadoc)
-	 * @see android.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
