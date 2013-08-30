@@ -39,7 +39,7 @@ import android.widget.SimpleAdapter;
 /**
  * The Class MainActivity.
  */
-public class MainActivity extends Activity implements FormFragment.FormListener, FilterFragment.FilterListener{
+public class MainActivity extends Activity implements FormFragment.FormListener{
 
 	protected static final int FilterActivityRequestCode = 0;
 	public static String JSON_MOVIES = "movies";
@@ -255,12 +255,6 @@ public class MainActivity extends Activity implements FormFragment.FormListener,
 		intent.putExtra("saved", (Serializable)myList);
 		//launching the activity prepairing for results
 		startActivityForResult(intent, 0);
-		
-	}
-
-	@Override
-	public void onFilterSelected(Intent intent) {
-		
 		
 	}
 
